@@ -1,3 +1,17 @@
+/*
+    Theme Name: Slowbeacon
+    Theme URI: http://perceval.faramaz.com/dev/themes/slowbeacon
+    Author: Perceval FARAMAZ
+    Author URI: http://perceval.faramaz.com/
+    Description: A free WordPress theme suitable for writers and authors. Forked from Jim Barraud's Manifest theme
+    Version: 1.0
+    License: GNU General Public License v2 or later
+    License URI: http://www.gnu.org/licenses/gpl-2.0.html
+    Tags: white, minimal, light, responsive, full-width-template, two-columns, featured-images
+    Text Domain: slowbeacon 
+
+    This theme, like WordPress, is licensed under the GPL.
+*/
 @import url(css/normalize.css);
 * {
     -moz-box-sizing: border-box;
@@ -101,7 +115,7 @@ dd {
 }
 .site-header {
     margin: 0 auto 50px;
-    max-width: 700px;
+    max-width: 800px;
     position: relative
 }
 .site-header h1 {
@@ -426,7 +440,7 @@ h1.menu-toggle.toggled-on:before {
     left: -9999px
 }
 .site {
-    max-width: 700px;
+    max-width: 800px;
     margin: 0 auto
 }
 @media (max-width: 960px) {
@@ -676,7 +690,7 @@ article {
 .entry-header,
 .social-header {
     position: relative;
-    padding-top: 50px;
+    padding-top: 15px;
     border-top: 1px solid #ccc;
     text-align: center
 }
@@ -705,9 +719,9 @@ article {
     text-decoration: none;
     line-height: 26px;
     position: relative;
-    top: -66px;
+    top: -31px;
     background: #fff;
-    padding: 0 20px
+    padding: 0 0 0 0
 }
 @media (max-width: 480px) {
     .entry-header .entry-meta a:link,
