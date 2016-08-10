@@ -1,4 +1,92 @@
 <?php
+
+
+/*
+* Creating a function to create our CPT
+*/
+
+function custom_post_type() {
+
+// Set UI labels for Custom Post Type
+	$labels = array(
+		'name'                => _x( 'Recommandations', 'Post Type General Name', 'manifest' ),
+		'singular_name'       => _x( 'Recommandation', 'Post Type Singular Name', 'manifest' ),
+		'menu_name'           => __( 'Recommandations', 'manifest' ),
+		'all_items'           => __( 'Toutes les recommandations', 'manifest' ),
+		'view_item'           => __( 'Voir cette recommandation', 'manifest' ),
+		'add_new_item'        => __( 'Ajouter une recommandation', 'manifest' ),
+		'add_new'             => __( 'Ajouter', 'manifest' ),
+		'edit_item'           => __( 'Éditer recommandation', 'manifest' ),
+		'update_item'         => __( 'Mettre à jour recommandation', 'manifest' ),
+		'search_items'        => __( 'Chercher dans les recommandation', 'manifest' ),
+		'not_found'           => __( 'Aucun résultat', 'manifest' ),
+		'not_found_in_trash'  => __( 'Aucun résultat dans la corbeille', 'manifest' ),
+	);
+	
+// Set other options for Custom Post Type
+	
+	$args = array(
+		'label'               => __( 'recommandations', 'manifest' ),
+		'description'         => __( 'Conseils et recommandations littéraires', 'manifest' ),
+		'labels'              => $labels,
+		// Features this CPT supports in Post Editor
+		'supports'            => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'revisions', 'custom-fields', ),
+		// You can associate this CPT with a taxonomy or custom taxonomy. 
+		'taxonomies'          => array( 'genres', 'mediatypes' ),
+		/* A hierarchical CPT is like Pages and can have
+		* Parent and child items. A non-hierarchical CPT
+		* is like Posts.
+		*/	
+		'hierarchical'        => false,
+		'public'              => true,
+		'show_ui'             => true,
+		'show_in_menu'        => true,
+		'show_in_nav_menus'   => true,
+		'show_in_admin_bar'   => true,
+		'menu_position'       => 5,
+		'can_export'          => true,
+		'has_archive'         => true,
+		'exclude_from_search' => false,
+		'publicly_queryable'  => true,
+		'capability_type'     => 'page',
+	);
+	
+	// Registering your Custom Post Type
+	register_post_type( 'recommandations', $args );
+
+
+	$taxotypelabels = array(
+		'name' => 'Types de média',
+		'singular_name' => 'Type de média',
+		'all_items' => 'Toutes les types',
+		'edit_item' => 'Éditer le type',
+		'view_item' => 'Voir le type',
+		'update_item' => 'Mettre à jour le type',
+		'add_new_item' => 'Ajouter un type',
+		'new_item_name' => 'Nouveau type',
+		'search_items' => 'Rechercher parmi les types',
+		'popular_items' => 'Types de médias les plus utilisées'
+	);
+
+	$taxotypeargs = array(
+		'labels' => $taxotypelabels,
+		'hierarchical' => false, 
+		'label' => 'Types de média', 
+		'query_var' => true, 
+		'rewrite' => true
+	);
+
+	register_taxonomy( 'mediatypes', 'recommandations',  $taxotypeargs);
+}
+
+/* Hook into the 'init' action so that the function
+* Containing our post type registration is not 
+* unnecessarily executed. 
+*/
+
+add_action( 'init', 'custom_post_type', 0 );
+
+
 /**
  * manifest functions and definitions
  *
@@ -376,4 +464,3 @@ function my_format_chat_row_id( $chat_author ) {
 	/* Return the array key for the chat author and add "1" to avoid an ID of "0". */
 	return absint( array_search( $chat_author, $_post_format_chat_ids ) ) + 1;
 }
-
