@@ -123,15 +123,32 @@ if ( ! function_exists( 'manifest_posted_on' ) ) :
  * @since Manifest 2.0
  */
 function manifest_posted_on() {
-	printf( __( '<a href="%1$s" title="%2$s" rel="bookmark"><time class="entry-date" datetime="%3$s">%4$s</time></a>', 'manifest' ),
+	$categories = get_the_category();
+	if ($categories[0]->term_id==13) {
+		printf( __( '<span>Un article publié le </span><a href="%1$s" title="%2$s" rel="bookmark"><time class="entry-date" datetime="%3$s">%4$s</time></a><span> (c\'était un %5$s)</span>', 'manifest' ),
 		esc_url( get_permalink() ),
 		esc_attr( get_the_time() ),
 		esc_attr( get_the_date( 'c' ) ),
 		esc_html( get_the_date() ),
+		esc_html( get_the_time('l') ),
 		esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
 		esc_attr( sprintf( __( 'View all posts by %s', 'manifest' ), get_the_author() ) ),
 		get_the_author()
 	);
+	} else {
+		printf( __( '<span>Une histoire dans l\'univers de </span><a href="%1$s" rel="category tag">%2$s</a><span>, publiée le </span><a href="%3$s" title="%4$s" rel="bookmark"><time class="entry-date" datetime="%5$s">%6$s</time></a><span> (c\'était un %7$s)</span>', 'manifest' ),
+		esc_url( get_category_link( $categories[0]->term_id ) ),
+		esc_html( $categories[0]->name ),
+		esc_url( get_permalink() ),
+		esc_attr( get_the_time() ),
+		esc_attr( get_the_date( 'c' ) ),
+		esc_html( get_the_date() ),
+		esc_html( get_the_time('l') ),
+		esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
+		esc_attr( sprintf( __( 'View all posts by %s', 'manifest' ), get_the_author() ) ),
+		get_the_author()
+	);
+	}
 }
 endif;
 
